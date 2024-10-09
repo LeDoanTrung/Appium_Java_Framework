@@ -1,20 +1,10 @@
 {
-  "android": {
     "platformName": "Android",
     "platformVersion": "11.0",
     "deviceName": "emulator-5554",
     "appPackage": "com.studiobluelime.ecommerceapp",
     "appActivity": "com.studiobluelime.ecommerceapp.WelcomeActivity",
     "automationName": "UiAutomator2",
-    "commandTimeout": "60"
-  },
-  "ios": {
-    "platformName": "iOS",
-    "platformVersion": "14.0",
-    "deviceName": "emulator-5554",
-    "appPackage": "com.studiobluelime.ecommerceapp",
-    "appActivity": "com.studiobluelime.ecommerceapp.WelcomeActivity",
-    "automationName": "XCUITest",
-    "commandTimeout": "60"
-  }
+    "commandTimeout": "60",
+    "appiumServerURL": "http://localhost:4723"
 }
