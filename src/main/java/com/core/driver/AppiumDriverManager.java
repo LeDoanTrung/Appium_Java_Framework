@@ -1,6 +1,6 @@
 package com.core.driver;
 
-import com.core.constant.Constant;
+import com.constant.Constant;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 

@@ -1,7 +1,6 @@
 package com.core.driver;
 
-import com.core.constant.Constant;
-import io.appium.java_client.remote.MobileCapabilityType;
+import com.constant.Constant;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;

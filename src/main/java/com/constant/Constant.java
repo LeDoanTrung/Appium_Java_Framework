@@ -1,4 +1,4 @@
-package com.core.constant;
+package com.constant;
 
 public class Constant {
     public static int DEFAULT_TIMEOUT = 30;
