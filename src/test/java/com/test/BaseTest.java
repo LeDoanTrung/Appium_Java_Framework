@@ -1,32 +1,74 @@
 package com.test;
 
+import com.constant.FilePathConstant;
+import com.constant.SettingConstant;
 import com.core.config.ConfigurationHelper;
 import com.core.driver.AppiumDriverManager;
-import com.hook.Hooks;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import com.core.driver.AppiumServerManager;
+import com.core.emulator.AndroidEmulatorManager;
+import com.core.report.ExtentReportManager;
+import com.core.report.ExtentTestManager;
+import com.fasterxml.jackson.databind.JsonNode;
+import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 
 public class BaseTest {
 
-    @BeforeTest
-    public void OneTimeSetup() throws MalformedURLException {
-        String platformName = ConfigurationHelper.getConfigurationByKey(Hooks.config, "platformName");
-        String platformVersion = ConfigurationHelper.getConfigurationByKey(Hooks.config, "platformVersion");
-        String deviceName = ConfigurationHelper.getConfigurationByKey(Hooks.config, "deviceName");
-        String automationName = ConfigurationHelper.getConfigurationByKey(Hooks.config, "automationName");
-        String appiumServerUrl = ConfigurationHelper.getConfigurationByKey(Hooks.config, "appiumServerUrl");
+    public static JsonNode config;
+    public AndroidEmulatorManager androidEmulatorManager;
 
-        AppiumDriverManager.initDriver(platformName, platformVersion, deviceName, automationName, appiumServerUrl);
+    @BeforeSuite
+    public void mySetup() throws IOException, InterruptedException {
+        System.out.println("====> Global one time setup");
 
+        // Read Configuration file
+        config = ConfigurationHelper.readConfiguration(FilePathConstant.APP_SETTING_PATH);
+        androidEmulatorManager = new AndroidEmulatorManager(SettingConstant.DEFAULT_EMULATOR);
+
+        // Start Appium Server
+        if (!AppiumServerManager.isServerRunning()){
+            AppiumServerManager.startServer();
+        }
     }
 
-    // Add @AfterTest here
+    @BeforeTest
+    public void OneTimeSetup() throws MalformedURLException {
+        String platformName = ConfigurationHelper.getConfigurationByKey(config, "platformName");
+        String platformVersion = ConfigurationHelper.getConfigurationByKey(config, "platformVersion");
+        String deviceName = ConfigurationHelper.getConfigurationByKey(config, "deviceName");
+        String automationName = ConfigurationHelper.getConfigurationByKey(config, "automationName");
+        String appiumServerUrl = ConfigurationHelper.getConfigurationByKey(config, "appiumServerURL");
+
+        AppiumDriverManager.initDriver(platformName, platformVersion, deviceName, automationName, appiumServerUrl);
+    }
+
+    @BeforeClass
+    public void beforeClassSetup(ITestContext context) {
+        ExtentTestManager.createParentTest(context.getCurrentXmlTest().getName(), "Extent Test Report");
+    }
+
+    @BeforeMethod
+    public void beforeMethodSetup() {
+        ExtentTestManager.createTest(getClass().getName(), "");
+    }
+
     @AfterTest
-    public void tearDown() {
+    public void afterTestTearDown() {
         AppiumDriverManager.quitDriver();
     }
 
+    @AfterMethod
+    public void afterMethodTearDown(ITestResult result) {
+        ExtentTestManager.updateTestReport(result);
+    }
 
+    @AfterSuite
+    public void afterSuiteTearDown() {
+        AppiumServerManager.stopServer();
+        ExtentReportManager.generateReport();
+    }
 }

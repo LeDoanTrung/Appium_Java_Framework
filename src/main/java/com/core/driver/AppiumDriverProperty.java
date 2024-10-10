@@ -1,6 +1,6 @@
 package com.core.driver;
 
-import com.constant.Constant;
+import com.constant.SettingConstant;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
@@ -28,8 +28,13 @@ public class AppiumDriverProperty {
         this.desiredCapabilities.setCapability(MobileCapabilityTypeExtends.DEVICE_NAME, deviceName);
         this.desiredCapabilities.setCapability(MobileCapabilityTypeExtends.AUTOMATION_NAME, automationName);
         this.desiredCapabilities.setCapability(MobileCapabilityTypeExtends.NEW_COMMAND_TIMEOUT, 300);
-        this.desiredCapabilities.setCapability(MobileCapabilityTypeExtends.APP_PACKAGE, Constant.APP_PACKAGE);
-        this.desiredCapabilities.setCapability(MobileCapabilityTypeExtends.APP_ACTIVITY, Constant.APP_ACTIVITY);
+        this.desiredCapabilities.setCapability(MobileCapabilityTypeExtends.APP_PACKAGE, SettingConstant.APP_PACKAGE);
+        this.desiredCapabilities.setCapability(MobileCapabilityTypeExtends.APP_ACTIVITY, SettingConstant.APP_ACTIVITY);
+        this.platformName = platformName;
+        this.platformVersion = platformVersion;
+        this.deviceName = deviceName;
+        this.automationName = automationName;
+        this.appiumServerUrl = new URL(appiumServerUrl);
     }
 
     public DesiredCapabilities getDesiredCapabilities() {
@@ -39,4 +44,25 @@ public class AppiumDriverProperty {
     public URL getAppiumServerUrl() {
         return appiumServerUrl;
     }
+
+    public String getPlatformName() {
+        return platformName;
+    }
+
+    public String getPlatformVersion() {
+        return platformVersion;
+    }
+
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public String getAutomationName() {
+        return automationName;
+    }
+
+    public String getCommandTimeout() {
+        return commandTimeout;
+    }
+
 }

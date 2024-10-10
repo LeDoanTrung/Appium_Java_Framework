@@ -3,8 +3,7 @@
 <suite name="Ecommerce App Test" verbose="1">
     <test name="UI Test">
         <classes>
-
+            <class name="com.test.LoginTest"></class>
         </classes>
-
     </test>
 </suite>

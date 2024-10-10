@@ -1,6 +1,6 @@
 package com.core.driver;
 
-import com.constant.Constant;
+import com.constant.SettingConstant;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -25,9 +25,9 @@ public class AppiumDriverManager {
         if (getDriver() == null) {
             AppiumDriverProperty appiumDriverProperty = new AppiumDriverProperty(platformName, platformVersion, deviceName, automationName, appiumServerUrl);
             AppiumDriver driver = AppiumDriverCreator.startDriver(appiumDriverProperty);
-            driver.manage().timeouts().implicitlyWait(Constant.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(SettingConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
             drivers.set(driver);
-            waits.set(new WebDriverWait(driver, Duration.ofSeconds(Constant.DEFAULT_TIMEOUT)));
+            waits.set(new WebDriverWait(driver, Duration.ofSeconds(SettingConstant.DEFAULT_TIMEOUT)));
         }
         else {
             throw new IllegalStateException("Driver is already initialized");
