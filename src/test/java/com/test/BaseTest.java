@@ -58,7 +58,7 @@ public class BaseTest {
         String appiumServerUrl = ConfigurationHelper.getConfigurationByKey(config, "appiumServerURL");
 
         AppiumDriverManager.initDriver(platformName, platformVersion, deviceName, automationName, appiumServerUrl);
-        ExtentTestManager.createTest(getClass().getName(), "");
+        ExtentTestManager.createNodeTest(getClass().getName(), "");
     }
 
     @AfterTest

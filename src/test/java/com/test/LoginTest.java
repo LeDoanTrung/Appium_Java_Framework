@@ -69,9 +69,5 @@ public class LoginTest extends BaseTest {
 
     }
 
-    @AfterMethod
-    public void tearDown() {
-        AppiumDriverManager.quitDriver();
-    }
 
 }
