@@ -1,5 +1,6 @@
 package com.page;
 
+import com.constant.MessageConstant;
 import com.core.element.Element;
 import io.appium.java_client.AppiumBy;
 
@@ -45,4 +46,13 @@ public class MyAccountPage extends BasePage{
         }
         return true;
     }
+
+    public void clickRegisterButton() {
+        _registerButton.click();
+    }
+
+    public boolean isErrorMessageDisplay() {
+        return _message(MessageConstant.INVALID_ACCOUNT_MESSAGE).isElementDisplayed();
+    }
+
 }

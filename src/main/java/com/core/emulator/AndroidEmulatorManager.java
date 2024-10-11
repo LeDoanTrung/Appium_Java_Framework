@@ -12,7 +12,6 @@ public class AndroidEmulatorManager {
             this.emulatorName = emulatorName;
         }
 
-        // Khởi động emulator
         public void startEmulator() throws IOException, InterruptedException {
             if (isEmulatorRunning()) {
                 System.out.println("Emulator is already running.");
@@ -35,8 +34,6 @@ public class AndroidEmulatorManager {
                 }
             }
 
-            // Chờ đến khi quá trình boot hoàn toàn hoàn tất
-            process.waitFor();
         }
 
         // Dừng emulator
@@ -54,7 +51,6 @@ public class AndroidEmulatorManager {
             System.out.println("Emulator stopped.");
         }
 
-        // Kiểm tra emulator có đang chạy không
         public boolean isEmulatorRunning() throws IOException {
             ProcessBuilder processBuilder = new ProcessBuilder("adb", "devices");
             processBuilder.redirectErrorStream(true);

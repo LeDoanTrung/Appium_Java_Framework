@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 
 public class Element {
     private static SwipeActionHelper swipeActionHelper;
+
     private By appiumBy;
 
     public Element(By appiumBy) {
@@ -113,7 +114,5 @@ public class Element {
         Select select = new Select(element);
         select.selectByVisibleText(text);
     }
-
-
 
 }

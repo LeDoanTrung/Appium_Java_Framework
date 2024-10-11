@@ -32,14 +32,14 @@ public class ExtentTestManager {
     public static void updateTestReport(ITestResult result) {
         switch (result.getStatus()) {
             case ITestResult.FAILURE:
-                getTest().fail("Test failed with message: " + result.getThrowable().getMessage());
                 getTest().fail("Stacktrace: " + result.getThrowable());
+                ReportLog.fail("Test failed with message: " + result.getThrowable().getMessage());
                 break;
             case ITestResult.SKIP:
-                getTest().skip("Test skipped with message: " + result.getThrowable().getMessage());
+                ReportLog.skip("Test skipped with message: " + result.getThrowable().getMessage());
                 break;
             case ITestResult.SUCCESS:
-                getTest().pass("Test passed");
+                ReportLog.pass("Test passed");
                 break;
             default:
                 getTest().log(Status.WARNING, "Test finished with unknown status");

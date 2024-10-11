@@ -29,21 +29,19 @@ public class BaseTest {
         config = ConfigurationHelper.readConfiguration(FilePathConstant.APP_SETTING_PATH);
         androidEmulatorManager = new AndroidEmulatorManager(SettingConstant.DEFAULT_EMULATOR);
 
+        //Start Emulator
+        androidEmulatorManager.startEmulator();
+
         // Start Appium Server
         if (!AppiumServerManager.isServerRunning()){
             AppiumServerManager.startServer();
         }
+
     }
 
     @BeforeTest
     public void OneTimeSetup() throws MalformedURLException {
-        String platformName = ConfigurationHelper.getConfigurationByKey(config, "platformName");
-        String platformVersion = ConfigurationHelper.getConfigurationByKey(config, "platformVersion");
-        String deviceName = ConfigurationHelper.getConfigurationByKey(config, "deviceName");
-        String automationName = ConfigurationHelper.getConfigurationByKey(config, "automationName");
-        String appiumServerUrl = ConfigurationHelper.getConfigurationByKey(config, "appiumServerURL");
 
-        AppiumDriverManager.initDriver(platformName, platformVersion, deviceName, automationName, appiumServerUrl);
     }
 
     @BeforeClass
@@ -52,23 +50,32 @@ public class BaseTest {
     }
 
     @BeforeMethod
-    public void beforeMethodSetup() {
+    public void beforeMethodSetup() throws MalformedURLException {
+        String platformName = ConfigurationHelper.getConfigurationByKey(config, "platformName");
+        String platformVersion = ConfigurationHelper.getConfigurationByKey(config, "platformVersion");
+        String deviceName = ConfigurationHelper.getConfigurationByKey(config, "deviceName");
+        String automationName = ConfigurationHelper.getConfigurationByKey(config, "automationName");
+        String appiumServerUrl = ConfigurationHelper.getConfigurationByKey(config, "appiumServerURL");
+
+        AppiumDriverManager.initDriver(platformName, platformVersion, deviceName, automationName, appiumServerUrl);
         ExtentTestManager.createTest(getClass().getName(), "");
     }
 
     @AfterTest
     public void afterTestTearDown() {
-        AppiumDriverManager.quitDriver();
+
     }
 
     @AfterMethod
     public void afterMethodTearDown(ITestResult result) {
         ExtentTestManager.updateTestReport(result);
+        AppiumDriverManager.quitDriver();
     }
 
     @AfterSuite
-    public void afterSuiteTearDown() {
+    public void afterSuiteTearDown() throws IOException, InterruptedException {
         AppiumServerManager.stopServer();
         ExtentReportManager.generateReport();
+        androidEmulatorManager.stopEmulator();
     }
 }

@@ -22,16 +22,11 @@ public class AppiumDriverManager {
     }
 
     public static void initDriver(String platformName, String platformVersion, String deviceName, String automationName, String appiumServerUrl) throws MalformedURLException {
-        if (getDriver() == null) {
             AppiumDriverProperty appiumDriverProperty = new AppiumDriverProperty(platformName, platformVersion, deviceName, automationName, appiumServerUrl);
             AppiumDriver driver = AppiumDriverCreator.startDriver(appiumDriverProperty);
             driver.manage().timeouts().implicitlyWait(SettingConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
             drivers.set(driver);
             waits.set(new WebDriverWait(driver, Duration.ofSeconds(SettingConstant.DEFAULT_TIMEOUT)));
-        }
-        else {
-            throw new IllegalStateException("Driver is already initialized");
-        }
     }
 
     public static void quitDriver() {

@@ -18,5 +18,16 @@ public class Account {
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+
+    // Constructor
+    public Account(String name, String mobile, String email, String password) {
+        this.name = name;
+        this.mobile = mobile;
+        this.email = email;
+        this.password = password;
+    }
+
+    public Account() {
+    }
 }
 

@@ -6,6 +6,7 @@ import io.appium.java_client.AppiumBy;
 public class WelcomePage extends BasePage{
 
     //Element
+
     private Element _skipButton = new Element(AppiumBy.xpath("//android.widget.Button[@text='SKIP']"));
     private Element _nextButton = new Element(AppiumBy.xpath("//android.widget.Button[@text='NEXT']"));
 
