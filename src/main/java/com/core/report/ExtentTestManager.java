@@ -19,9 +19,9 @@ public class ExtentTestManager {
     }
 
     // Create a node for finer control over the test steps
-    public static ExtentTest createNodeTest(String testName, String description) {
+    public static ExtentTest createNodeTest(String testName) {
         String simpleName = testName.substring(testName.lastIndexOf(".") + 1);
-        ExtentTest child = parentTest.get().createNode(simpleName, description);
+        ExtentTest child = parentTest.get().createNode(simpleName);
         childTest.set(child);
         return childTest.get();
     }

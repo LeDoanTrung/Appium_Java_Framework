@@ -12,7 +12,7 @@ public class AccountDataProvider {
     }
 
     public  String generateRandomMobileNumber() {
-        return faker.phoneNumber().cellPhone();
+        return faker.number().digits(10);
     }
 
     public  String generateRandomEmail() {

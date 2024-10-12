@@ -1,8 +1,6 @@
 package com.test;
 
 import com.constant.FilePathConstant;
-import com.core.driver.AppiumDriverManager;
-import com.core.driver.AppiumDriverProperty;
 import com.core.report.ReportLog;
 import com.core.util.DataReaderHelper;
 import com.core.util.TestHelper;
@@ -12,7 +10,6 @@ import com.page.HomePage;
 import com.page.MyAccountPage;
 import com.page.WelcomePage;
 import jdk.jfr.Description;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.assertj.core.api.Assertions.assertThat;

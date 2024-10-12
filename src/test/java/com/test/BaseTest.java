@@ -9,11 +9,13 @@ import com.core.emulator.AndroidEmulatorManager;
 import com.core.report.ExtentReportManager;
 import com.core.report.ExtentTestManager;
 import com.fasterxml.jackson.databind.JsonNode;
+import jdk.jfr.Description;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 
 public class BaseTest {
@@ -40,17 +42,17 @@ public class BaseTest {
     }
 
     @BeforeTest
-    public void OneTimeSetup() throws MalformedURLException {
-
+    public void OneTimeSetup(ITestContext context) throws MalformedURLException {
+        ExtentTestManager.createParentTest(context.getCurrentXmlTest().getName(), "Extent Test Report");
     }
 
     @BeforeClass
     public void beforeClassSetup(ITestContext context) {
-        ExtentTestManager.createParentTest(context.getCurrentXmlTest().getName(), "Extent Test Report");
+
     }
 
     @BeforeMethod
-    public void beforeMethodSetup() throws MalformedURLException {
+    public void beforeMethodSetup(Method method) throws MalformedURLException {
         String platformName = ConfigurationHelper.getConfigurationByKey(config, "platformName");
         String platformVersion = ConfigurationHelper.getConfigurationByKey(config, "platformVersion");
         String deviceName = ConfigurationHelper.getConfigurationByKey(config, "deviceName");
@@ -58,7 +60,13 @@ public class BaseTest {
         String appiumServerUrl = ConfigurationHelper.getConfigurationByKey(config, "appiumServerURL");
 
         AppiumDriverManager.initDriver(platformName, platformVersion, deviceName, automationName, appiumServerUrl);
-        ExtentTestManager.createNodeTest(getClass().getName(), "");
+
+        Description description = method.getAnnotation(Description.class);
+        if (description != null) {
+            ExtentTestManager.createNodeTest(description.value());
+        } else {
+            ExtentTestManager.createNodeTest(method.getName());
+        }
     }
 
     @AfterTest

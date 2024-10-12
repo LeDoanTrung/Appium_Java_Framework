@@ -10,6 +10,9 @@ public class MyAccountPage extends BasePage{
     private Element _passwordTxtBox = new Element(AppiumBy.xpath("//android.widget.EditText[@text='Password']"));
     private Element _loginButton = new Element(AppiumBy.xpath("//android.widget.Button[@text='LOGIN']"));
     private Element _registerButton = new Element(AppiumBy.xpath("//android.widget.TextView[@text='Not Registered ? Register Now !']"));
+    private Element _item (String itemName) {
+        return new Element(AppiumBy.xpath(String.format("//android.widget.Button[@text='%s']", itemName)));
+    }
 
     private Element _itemName (String name) {
         return new Element(AppiumBy.xpath(String.format("//android.widget.Button[@text='%s']", name)));
@@ -47,12 +50,18 @@ public class MyAccountPage extends BasePage{
         return true;
     }
 
-    public void clickRegisterButton() {
+    public RegisterPage clickRegisterButton() {
         _registerButton.click();
+        return new RegisterPage();
     }
 
     public boolean isErrorMessageDisplay() {
         return _message(MessageConstant.INVALID_ACCOUNT_MESSAGE).isElementDisplayed();
     }
+
+    public void goToItem(String itemName) {
+        _item(itemName).click();
+    }
+
 
 }
