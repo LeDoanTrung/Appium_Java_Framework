@@ -36,7 +36,6 @@ public class AndroidEmulatorManager {
 
         }
 
-        // Dừng emulator
         public void stopEmulator() throws IOException, InterruptedException {
             if (!isEmulatorRunning()) {
                 System.out.println("Emulator is not running.");

@@ -1,0 +1,18 @@
+userName: doantrungle_QqH4yS
+accessKey: 7BkaYexgpsiR6Tcc26hB
+framework: testng
+app: bs://8870714aa3d90cac9140f0c733bb0bfc37c62ed5
+platforms:
+  - platformName: android
+    deviceName: Google Pixel 4
+    platformVersion: 11.0
+  - platformName: android
+    deviceName: Google Pixel 5
+    platformVersion: 11.0
+  - platformName: android
+    deviceName: OnePlus 9
+    platformVersion: 11.0
+parallelsPerPlatform: 1
+browserstackLocal: true
+buildName: browserstack-build-1
+projectName: BrowserStack Sample
